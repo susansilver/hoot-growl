@@ -336,7 +336,7 @@ p {
 
 /* Blockquote */
 blockquote {
-  border-left: 3px solid #12082d
+  border-left: 3px solid #12082d;
   padding-inline: var(--space-xs);
 }
 
@@ -378,4 +378,3 @@ a:hover {
 a:visited {
   color: #381a95;
 }
-
