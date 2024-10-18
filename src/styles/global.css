@@ -351,8 +351,8 @@ blockquote {
 button {
   padding-inline: var(--space-xl);
   padding-block: var(--space-small);
-  border: 5px solid #7364ff;
-  background-color: #4314bf;
+  border: 5px solid #4314bf;
+  background-color: #7364ff;
   color: #000;
   transition: color 0.3s ease-out;
   border-top-left-radius: 15px;
