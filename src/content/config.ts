@@ -52,7 +52,7 @@ const dm = defineCollection({
 const type = defineCollection({
   type: "content",
   schema: z.object({
-    type: z.string(),
+    name: z.string(),
     campaigns: z.array(z.string()),
     updatedOn: z
       .string()
