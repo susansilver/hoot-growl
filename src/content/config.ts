@@ -13,11 +13,14 @@ const blog = defineCollection({
         .string()
         .or(z.date())
         .transform((val) => new Date(val)),
-      categories: z.string().optional(),
-      tags: z.array(z.string()).optional(),
-      publicSrc: z.string().optional(),
+      campaign: z.string().optional(),
+      type: z.string().optional(),
       prev: z.string().optional(),
       next: z.string().optional(),
+      players: z.array(z.string()).optional(),
+      dm: z.string().optional(),
+      order: z.number().optional(),
+      series: z.string().optional(),
     }),
 });
 
