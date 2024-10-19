@@ -2,6 +2,7 @@
 import { defineCollection, z } from "astro:content";
 
 const blog = defineCollection({
+  type: "content",
   // Type-check frontmatter using a schema
   schema: ({ image }) =>
     z.object({
@@ -24,4 +25,40 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+const players = defineCollection({
+  type: "content",
+  schema: z.object({
+    name: z.string(),
+    campaigns: z.array(z.string()),
+    updatedOn: z
+      .string()
+      .or(z.date())
+      .transform((val) => new Date(val)),
+  }),
+});
+
+const dm = defineCollection({
+  type: "content",
+  schema: z.object({
+    name: z.string(),
+    campaigns: z.array(z.string()),
+    updatedOn: z
+      .string()
+      .or(z.date())
+      .transform((val) => new Date(val)),
+  }),
+});
+
+const type = defineCollection({
+  type: "content",
+  schema: z.object({
+    type: z.string(),
+    campaigns: z.array(z.string()),
+    updatedOn: z
+      .string()
+      .or(z.date())
+      .transform((val) => new Date(val)),
+  }),
+});
+
+export const collections = { blog, players, dm, type };
