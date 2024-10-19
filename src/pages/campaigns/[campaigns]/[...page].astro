@@ -17,12 +17,12 @@ export async function getStaticPaths({ paginate }: { paginate: any }) {
     ),
   ];
 
-  return allCategories.flatMap((campaign) => {
+  return allCategories.flatMap((campaigns) => {
     const filteredPosts = allPosts.filter(
-      (post) => post.data.campaign && post.data.campaign.includes(campaign)
+      (post) => post.data.campaign && post.data.campaign.includes(campaigns)
     );
     return paginate(filteredPosts, {
-      params: { campaign },
+      params: { campaigns },
       pageSize: 6,
     });
   });
@@ -64,16 +64,16 @@ const { params } = Astro;
 <html lang="en">
   <head>
     <BaseHead
-      title={params.campaign.toLowerCase().replace(/-/g, " ")}
-      description={`Campaign archive for ${params.campaign.replace(/-/g, " ")}`}
+      title={params.campaigns.toLowerCase().replace(/-/g, " ")}
+      description={`Campaign archive for ${params.campaigns.replace(/-/g, " ")}`}
     />
   </head>
 
-  <body class="dark:bg-black-900 dark:text-white-50">
+  <body class="bg-secondary-300">
     <Header />
     <main>
       <h1 class="text-3xl p-5 capitalize">
-        Campaign: {params.campaign.replace(/-/g, " ")}
+        Campaign: {params.campaigns.replace(/-/g, " ")}
       </h1>
 
       <h3 class="xl p-5">Page {page.currentPage}</h3>
