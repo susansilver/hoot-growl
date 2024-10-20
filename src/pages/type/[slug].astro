@@ -36,7 +36,15 @@ const { entry } = Astro.props;
               {entry.data.name}
             </span>
           </div>
-          <p>Updated on {entry.data.updatedOn.toISOString().slice(0, 10)}</p>
+          <p>
+            <time datetime={entry.data.updatedOn.toISOString()}>
+              Updated on {
+                entry.data.updatedOn.toLocaleDateString(undefined, {
+                  dateStyle: "medium",
+                  timeZone: "UTC",
+                })
+              }</time>
+          </p>
           <ul class="border-l-2 border-blue-brand padding-left-xxl">
             {
               Array.isArray(entry.data.campaigns) ? (
