@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
   const blogEntries = await getCollection("players");
@@ -36,7 +37,8 @@ const { entry } = Astro.props;
             </span>
           </div>
           <p>Updated on {entry.data.updatedOn.toISOString().slice(0, 10)}</p>
-          <ul>
+
+          <ul class="border-l-2 border-blue-brand padding-left-xxl">
             {
               Array.isArray(entry.data.campaigns) ? (
                 entry.data.campaigns.map((campaign) => (
@@ -57,5 +59,6 @@ const { entry } = Astro.props;
         </div>
       </div>
     </main>
+    <Footer />
   </body>
 </html>
