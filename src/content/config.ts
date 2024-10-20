@@ -37,7 +37,7 @@ const players = defineCollection({
   }),
 });
 
-const dm = defineCollection({
+const gm = defineCollection({
   type: "content",
   schema: z.object({
     name: z.string(),
@@ -61,4 +61,4 @@ const type = defineCollection({
   }),
 });
 
-export const collections = { blog, players, dm, type };
+export const collections = { blog, players, gm, type };
