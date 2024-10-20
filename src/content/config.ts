@@ -1,5 +1,5 @@
 /* import { imageMetadata } from 'astro/assets/utils'; */
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z, reference } from "astro:content";
 
 const blog = defineCollection({
   type: "content",
@@ -14,14 +14,9 @@ const blog = defineCollection({
         .string()
         .or(z.date())
         .transform((val) => new Date(val)),
-      campaign: z.string().optional(),
-      type: z.string().optional(),
+      campaign: z.string(reference("campaignsList")),
       prev: z.string().optional(),
       next: z.string().optional(),
-      players: z.array(z.string()).optional(),
-      dm: z.string().optional(),
-      order: z.number().optional(),
-      series: z.string().optional(),
     }),
 });
 
@@ -29,7 +24,7 @@ const players = defineCollection({
   type: "content",
   schema: z.object({
     name: z.string(),
-    campaigns: z.array(z.string()),
+    campaigns: z.array(z.string(reference("campaignsList"))),
     updatedOn: z
       .string()
       .or(z.date())
@@ -41,7 +36,7 @@ const gm = defineCollection({
   type: "content",
   schema: z.object({
     name: z.string(),
-    campaigns: z.array(z.string()),
+    campaigns: z.array(z.string(reference("campaignsList"))),
     updatedOn: z
       .string()
       .or(z.date())
@@ -53,7 +48,7 @@ const type = defineCollection({
   type: "content",
   schema: z.object({
     name: z.string(),
-    campaigns: z.array(z.string()),
+    campaigns: z.array(z.string(reference("campaignsList"))),
     updatedOn: z
       .string()
       .or(z.date())
@@ -61,4 +56,16 @@ const type = defineCollection({
   }),
 });
 
-export const collections = { blog, players, gm, type };
+const campaignsList = defineCollection({
+  type: "data",
+  schema: z.object({
+    title: z.string(),
+    players: z.array(z.string()),
+    dm: z.string(),
+    order: z.number(),
+    series: z.string().optional(),
+    type: z.string(),
+  }),
+});
+
+export const collections = { blog, players, gm, type, campaignsList };
