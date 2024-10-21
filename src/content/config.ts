@@ -24,7 +24,7 @@ const players = defineCollection({
   type: "content",
   schema: z.object({
     name: z.string(),
-    campaigns: z.array(z.string(reference("campaignsList"))),
+    campaigns: z.array(reference("campaignsList")),
     updatedOn: z
       .string()
       .or(z.date())

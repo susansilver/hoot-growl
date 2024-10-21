@@ -1,8 +1,10 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import { getEntry } from "astro:content";
+import { getEntries } from "astro:content";
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
   const blogEntries = await getCollection("players");
@@ -12,7 +14,14 @@ export async function getStaticPaths() {
   }));
 }
 // 2. When it's time to render, you can get the entry directly from the prop
+
+interface Props {
+  entry: CollectionEntry<"players">;
+}
+
 const { entry } = Astro.props;
+
+const campaignName = await getEntries(entry.data.campaigns);
 ---
 
 <html lang="en">
@@ -56,12 +65,12 @@ const { entry } = Astro.props;
                       href={`/campaigns/${campaign}`}
                       title={`View posts from "${campaign}"`}
                     >
-                      {campaign.replace(/-/g, " ")}
+                      {campaignName.title}
                     </a>
                   </li>
                 ))
               ) : (
-                <li class="tag">No campaigns found.</li>
+                <li>No campaigns found.</li>
               )
             }
           </ul>
