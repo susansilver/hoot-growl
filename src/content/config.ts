@@ -14,7 +14,7 @@ const blog = defineCollection({
         .string()
         .or(z.date())
         .transform((val) => new Date(val)),
-      campaign: z.string(reference("campaignsList")),
+      campaign: reference("campaignsList"),
       prev: z.string().optional(),
       next: z.string().optional(),
     }),
@@ -36,7 +36,7 @@ const gm = defineCollection({
   type: "content",
   schema: z.object({
     name: z.string(),
-    campaigns: z.array(z.string(reference("campaignsList"))),
+    campaigns: z.array(reference("campaignsList")),
     updatedOn: z
       .string()
       .or(z.date())
@@ -48,7 +48,7 @@ const type = defineCollection({
   type: "content",
   schema: z.object({
     name: z.string(),
-    campaigns: z.array(z.string(reference("campaignsList"))),
+    campaigns: z.array(reference("campaignsList")),
     updatedOn: z
       .string()
       .or(z.date())
