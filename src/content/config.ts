@@ -1,23 +1,22 @@
-/* import { imageMetadata } from 'astro/assets/utils'; */
 import { defineCollection, z, reference } from "astro:content";
 
 const blog = defineCollection({
   type: "content",
   // Type-check frontmatter using a schema
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      draft: z.boolean(),
-      // Transform string to Date object
-      pubDate: z
-        .string()
-        .or(z.date())
-        .transform((val) => new Date(val)),
-      campaign: reference("campaignsList"),
-      prev: z.string().optional(),
-      next: z.string().optional(),
-    }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    draft: z.boolean(),
+    // Transform string to Date object
+    pubDate: z
+      .string()
+      .or(z.date())
+      .transform((val) => new Date(val)),
+    campaign: z.string(),
+    campaignRef: reference("campaignsList").optional(),
+    prev: z.string().optional(),
+    next: z.string().optional(),
+  }),
 });
 
 const players = defineCollection({
