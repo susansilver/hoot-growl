@@ -1,8 +1,9 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntries } from "astro:content";
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import type { CollectionEntry } from "astro:content";
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
   const blogEntries = await getCollection("gm");
@@ -11,8 +12,14 @@ export async function getStaticPaths() {
     props: { entry },
   }));
 }
+
+interface Props {
+  entry: CollectionEntry<"gm">;
+}
 // 2. When it's time to render, you can get the entry directly from the prop
 const { entry } = Astro.props;
+
+const campaignNames = await getEntries(entry.data.campaigns);
 ---
 
 <html lang="en">
@@ -48,19 +55,19 @@ const { entry } = Astro.props;
           </p>
           <ul class="border-l-2 border-blue-brand padding-left-xxl">
             {
-              Array.isArray(entry.data.campaigns) ? (
-                entry.data.campaigns.map((campaign) => (
+              campaignNames.length > 0 ? (
+                campaignNames.map((campaign) => (
                   <li class="capitalize">
                     <a
-                      href={`/campaigns/${campaign}`}
-                      title={`View posts from "${campaign}"`}
+                      href={`/campaigns/${campaign.id}`}
+                      title={`View posts from "${campaign.data.title}"`}
                     >
-                      {campaign.replace(/-/g, " ")}
+                      {campaign.data.title}
                     </a>
                   </li>
                 ))
               ) : (
-                <li class="tag">No campaigns found.</li>
+                <li>No campaigns found.</li>
               )
             }
           </ul>
