@@ -13,7 +13,7 @@ const blog = defineCollection({
       .or(z.date())
       .transform((val) => new Date(val)),
     campaign: z.string(),
-    campaignRef: reference("campaignsList").optional(),
+    campaignRef: z.array(reference("campaignsList")),
     prev: z.string().optional(),
     next: z.string().optional(),
   }),
