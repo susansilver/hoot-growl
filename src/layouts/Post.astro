@@ -1,0 +1,43 @@
+---
+import Header from "../components/Header.astro";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+import { getEntries } from "astro:content";
+
+interface Props {
+  frontmatter: CollectionEntry<"blog">["data"] & {
+    title: string;
+    description: string;
+    draft: boolean;
+    pubDate: string;
+    show: boolean;
+    campaign: string;
+    campaignRef: string;
+    prev?: string;
+    next?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+
+/* const blogPost = await getEntry("blog", frontmatter.campaignRef); */
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={frontmatter.title} description={frontmatter.description} />
+  </head>
+
+  <body class="bg-secondary-300">
+    <Header />
+    <main>
+      <ul class="border-l-2 border-blue-brand padding-left-xxl">
+        <!--   <li>{blogPost.data.title}</li> -->
+      </ul>
+      <slot />
+      <Footer />
+    </main>
+  </body>
+</html>
